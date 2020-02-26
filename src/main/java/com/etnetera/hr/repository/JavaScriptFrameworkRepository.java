@@ -1,8 +1,12 @@
 package com.etnetera.hr.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.etnetera.hr.data.JavaScriptFramework;
+import com.etnetera.hr.data.entity.JavaScriptFramework;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Spring data repository interface used for accessing the data in database.
@@ -10,6 +14,7 @@ import com.etnetera.hr.data.JavaScriptFramework;
  * @author Etnetera
  *
  */
-public interface JavaScriptFrameworkRepository extends CrudRepository<JavaScriptFramework, Long> {
-
+@Component
+public interface JavaScriptFrameworkRepository extends JpaRepository<JavaScriptFramework, Long> {
+    List<JavaScriptFramework> findByName(String name);
 }
