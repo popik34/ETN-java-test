@@ -6,7 +6,6 @@ import com.etnetera.hr.data.entity.JavaScriptFramework;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Spring data repository interface used for accessing the data in database.

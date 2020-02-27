@@ -1,7 +1,6 @@
-package com.etnetera.hr.rest;
+package com.etnetera.hr.errors;
 
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class ApiError {
 
 	private List<ValidationError> validationErrors;
 
-	private HttpStatus status;
+	private int status;
 
 	private String error;
 }

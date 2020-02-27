@@ -1,4 +1,4 @@
-package com.etnetera.hr.rest;
+package com.etnetera.hr.errors;
 
 import lombok.Data;
 

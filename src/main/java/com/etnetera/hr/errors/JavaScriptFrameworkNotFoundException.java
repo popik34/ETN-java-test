@@ -1,4 +1,4 @@
-package com.etnetera.hr.rest;
+package com.etnetera.hr.errors;
 
 public class JavaScriptFrameworkNotFoundException extends RuntimeException {
 
