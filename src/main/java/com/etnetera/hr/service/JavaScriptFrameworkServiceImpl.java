@@ -4,7 +4,6 @@ import com.etnetera.hr.controller.JavaScriptFrameworkController;
 import com.etnetera.hr.data.dto.JavaScriptFrameworkDto;
 import com.etnetera.hr.data.entity.JavaScriptFramework;
 import com.etnetera.hr.repository.JavaScriptFrameworkRepository;
-import com.etnetera.hr.errors.JavaScriptFrameworkBadRequestException;
 import com.etnetera.hr.errors.JavaScriptFrameworkNotFoundException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -32,7 +31,7 @@ public class JavaScriptFrameworkServiceImpl implements JavaScriptFrameworkServic
     public ResponseEntity<CollectionModel<EntityModel<JavaScriptFrameworkDto>>> selectByIdJavaScriptFramework(Long id) {
 
         if(!repository.existsById(id)) {
-            throw new JavaScriptFrameworkNotFoundException();
+            throw new JavaScriptFrameworkNotFoundException(id);
         }
 
         List<EntityModel<JavaScriptFrameworkDto>> entityModelList = repository.findById(id).stream()
@@ -63,10 +62,6 @@ public class JavaScriptFrameworkServiceImpl implements JavaScriptFrameworkServic
     @Override
     public ResponseEntity<EntityModel<JavaScriptFrameworkDto>> insertJavaScriptFramework(JavaScriptFrameworkDto frameworkDto) {
 
-        if (repository.existsById(frameworkDto.getId())) {
-            throw new JavaScriptFrameworkBadRequestException();
-        }
-
         EntityModel<JavaScriptFrameworkDto> entityModel = this.assemblyToEntityModel(
                 repository.save(this.convertDtoToEntity(new JavaScriptFramework(), frameworkDto)));
 
@@ -84,7 +79,6 @@ public class JavaScriptFrameworkServiceImpl implements JavaScriptFrameworkServic
                             return repository.save(this.convertDtoToEntity(frameworkEntity, frameworkDto));
                         }).orElseGet(() -> {
                             //save dto into new entity
-                            frameworkDto.setId(id);
                             return repository.save( this.convertDtoToEntity(new JavaScriptFramework(), frameworkDto));
                         }));
 
@@ -95,7 +89,7 @@ public class JavaScriptFrameworkServiceImpl implements JavaScriptFrameworkServic
     public ResponseEntity<?> deleteJavaScriptFramework(Long id) {
 
         if(!repository.existsById(id)) {
-            throw new JavaScriptFrameworkNotFoundException();
+            throw new JavaScriptFrameworkNotFoundException(id);
         }
 
         repository.deleteById(id);

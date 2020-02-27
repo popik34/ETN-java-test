@@ -29,19 +29,21 @@ public class ApiErrorController {
 		error.setStatus(HttpStatus.BAD_REQUEST.value());
 		error.setError(ex.getClass().getName());
 		error.setValidationErrors(validationErrorList);
+		error.setMessage(ex.getMessage());
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler({JavaScriptFrameworkNotFoundException.class, JavaScriptFrameworkBadRequestException.class})
+	@ExceptionHandler({JavaScriptFrameworkNotFoundException.class})
 	public ResponseEntity<ApiError> handleNotFoundException(JavaScriptFrameworkNotFoundException ex) {
 
 		ApiError error = new ApiError();
 
 		error.setStatus(HttpStatus.BAD_REQUEST.value());
 		error.setError(ex.getClass().getName());
+		error.setMessage(ex.getMessage());
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
